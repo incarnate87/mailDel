@@ -26,8 +26,8 @@ let url, pwd, user;
   await tab.type("input[type='password']", pwd, {delay:500});
   await tab.waitForSelector("#passwordNext");
   await navigationHelper(tab, "#passwordNext");
-  await delMail(tab, "a[href = '?&s=t']");
   await delMail(tab, "a[href = '?&s=m']");
+  await delMail(tab, "a[href = '?&s=t']");
   await navigationHelper(tab, "#gb_71");
 }
   )
@@ -40,7 +40,7 @@ let url, pwd, user;
       tab.click(selector),
     ]);
   }
-  async function delMail(tab,selector)
+async function delMail(tab,selector)
   {
     await navigationHelper(tab, selector);
     let tr1 = await tab.$$(".th tbody tr");
@@ -52,5 +52,9 @@ let url, pwd, user;
         }
       }, tr1[i]);
     }
-    await navigationHelper(tab, "input[name='nvp_a_dl']");
+  await navigationHelper(tab, "input[name='nvp_a_dl']");
+   if(tr1.length==50)
+   {
+ await delMail(tab,selector);   
   }
+}
